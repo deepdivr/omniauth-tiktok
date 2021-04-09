@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "omniauth/strategies/oauth2"
-# require 'multi_json'
 
 module OmniAuth
   module Strategies
@@ -10,15 +9,15 @@ module OmniAuth
 
       option :client_options, site: "https://ads.tiktok.com",
                               authorize_url: "/marketing_api/auth",
-                              token_url: "/open_api/v1.2/oauth2/access_token/"
+                              token_url: "/open_api/v1.2/oauth2/access_token/",
+                              user_info_url: "/open_api/v1.1/user/info/"
 
-      uid { raw_info }
+      uid { raw_info.dig("data", "id") }
 
       info do
         prune!(
-          {
-            # fields
-          }
+          display_name: raw_info.dig("data", "display_name"),
+          email: raw_info.dig("data", "email")
         )
       end
 
@@ -27,8 +26,7 @@ module OmniAuth
       end
 
       def raw_info
-        # TODO: find out what goes in get(...)
-        @raw_info ||= access_token.get.parsed
+        @raw_info ||= access_token.get(options.dig("client_options", "user_info_url")).parsed
       end
 
       def authorize_params
