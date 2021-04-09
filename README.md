@@ -7,16 +7,12 @@ Omniauth Strategy for Tiktok
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'omniauth-tiktok'
+gem 'omniauth-tiktok', git: 'https://github.com/deepdivr/omniauth-tiktok'
 ```
 
 And then execute:
 
     $ bundle install
-
-Or install it yourself as:
-
-    $ gem install omniauth-tiktok
 
 
 ## License
