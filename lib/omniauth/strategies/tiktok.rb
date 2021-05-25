@@ -10,9 +10,10 @@ module OmniAuth
       option :client_options, site: "https://ads.tiktok.com",
                               authorize_url: "/marketing_api/auth",
                               token_url: "/open_api/v1.2/oauth2/access_token/",
-                              user_info_url: "/open_api/v1.1/user/info/"
+                              user_info_url: "/open_api/v1.1/user/info/",
+                              provider_ignores_state: true
 
-      uid { raw_info.dig("data", "id") }
+      uid { raw_info.dig("request_id") }
 
       info do
         prune!(
@@ -34,7 +35,14 @@ module OmniAuth
       end
 
       def token_params
-        super.merge({ app_id: options.client_id, secret: options.client_secret })
+        super.merge({ app_id: options.client_id, secret: options.client_secret, auth_code: request[:auth_code] })
+      end
+
+      def build_access_token
+        super
+      rescue ::OAuth2::Error => e
+        raise if e.response&.parsed&.dig("message") != "OK"
+        ::OAuth2::AccessToken.from_hash(client, e.response&.parsed&.dig("data"))
       end
 
       private
