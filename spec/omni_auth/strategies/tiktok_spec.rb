@@ -44,7 +44,7 @@ describe OmniAuth::Strategies::Tiktok, type: :strategy do
         data: {
           create_time: 1_617_793_706,
           display_name: "cameron",
-          id: 5_555_555_555_555_555_555,
+          id: "202104090941490102360412201D2AE6AE",
           email: "cameron@example.com"
         },
         request_id: "202104090941490102360412201D2AE6AE"
@@ -56,7 +56,7 @@ describe OmniAuth::Strategies::Tiktok, type: :strategy do
     before { allow(subject).to receive(:access_token).and_return(access_token) }
 
     it "#uid" do
-      expect(subject.uid).to eq(5_555_555_555_555_555_555)
+      expect(subject.uid).to eq("202104090941490102360412201D2AE6AE")
     end
 
     it "#info" do

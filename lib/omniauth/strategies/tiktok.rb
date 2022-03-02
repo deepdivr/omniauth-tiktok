@@ -39,7 +39,8 @@ module OmniAuth
       end
 
       def build_access_token
-        super
+        x = super
+        raise x.response.inspect
       rescue ::OAuth2::Error => e
         raise if e.response&.parsed&.dig("message") != "OK"
         ::OAuth2::AccessToken.from_hash(client, e.response&.parsed&.dig("data"))
