@@ -7,10 +7,10 @@ module OmniAuth
     class Tiktok < OmniAuth::Strategies::OAuth2
       option :name, "tiktok"
 
-      option :client_options, site: "https://ads.tiktok.com",
+      option :client_options, site: "https://business-api.tiktok.com",
                               authorize_url: "/marketing_api/auth",
                               token_url: "/open_api/v1.2/oauth2/access_token/",
-                              user_info_url: "/open_api/v1.1/user/info/",
+                              user_info_url: "/open_api/v1.2/user/info/",
                               provider_ignores_state: true
 
       uid { raw_info.dig("request_id") }

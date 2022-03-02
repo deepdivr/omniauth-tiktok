@@ -32,7 +32,7 @@ describe OmniAuth::Strategies::Tiktok, type: :strategy do
       OAuth2::Client.new("abc", "def") do |builder|
         builder.request :url_encoded
         builder.adapter :test do |stub|
-          stub.get("/open_api/v1.1/user/info/") { [200, { "content-type" => "application/json" }, response_hash.to_json] }
+          stub.get("/open_api/v1.2/user/info/") { [200, { "content-type" => "application/json" }, response_hash.to_json] }
         end
       end
     end
@@ -56,7 +56,7 @@ describe OmniAuth::Strategies::Tiktok, type: :strategy do
     before { allow(subject).to receive(:access_token).and_return(access_token) }
 
     it "#uid" do
-      expect(subject.uid).to eq(5_555_555_555_555_555_555)
+      expect(subject.uid).to eq("202104090941490102360412201D2AE6AE")
     end
 
     it "#info" do
