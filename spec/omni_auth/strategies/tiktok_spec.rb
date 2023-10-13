@@ -32,7 +32,7 @@ describe OmniAuth::Strategies::Tiktok, type: :strategy do
       OAuth2::Client.new("abc", "def") do |builder|
         builder.request :url_encoded
         builder.adapter :test do |stub|
-          stub.get("/open_api/v1.2/user/info/") { [200, { "content-type" => "application/json" }, response_hash.to_json] }
+          stub.get("/open_api/v1.3/user/info/") { [200, { "content-type" => "application/json" }, response_hash.to_json] }
         end
       end
     end
