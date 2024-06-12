@@ -8,7 +8,7 @@ module OmniAuth
       option :name, "tiktok"
 
       option :client_options, site: "https://business-api.tiktok.com",
-                              authorize_url: "/marketing_api/auth",
+                              authorize_url: "https://ads.tiktok.com/marketing_api/auth",
                               token_url: "/open_api/v1.3/oauth2/access_token/",
                               user_info_url: "/open_api/v1.3/user/info/",
                               provider_ignores_state: true
